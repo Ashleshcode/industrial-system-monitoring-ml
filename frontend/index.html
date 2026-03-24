@@ -1,69 +1,342 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fabric Defect Detection</title>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Fabric Defect Detection
+  </title>
+
   <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
+
   <main class="page">
+
     <section class="card">
 
-      <h1 class="title">Fabric Defect Detection</h1>
-      <p class="subtitle">Upload a fabric image and run defect prediction.</p>
-      <p class="hint">Supported formats: JPG, PNG, BMP</p>
+      <!-- ───────────────────────────── -->
+      <!-- HEADER -->
+      <!-- ───────────────────────────── -->
+
+      <h1 class="title">
+        Fabric Defect Detection
+      </h1>
+
+      <p class="subtitle">
+        Upload or capture a fabric image and run AI-based defect inspection.
+      </p>
+
+      <p class="hint">
+        Supported formats: JPG, PNG, BMP
+      </p>
+
+
+      <!-- ───────────────────────────── -->
+      <!-- IMAGE INPUT -->
+      <!-- ───────────────────────────── -->
 
       <div class="form-group">
-        <label for="imageInput" class="label">Fabric Image</label>
-        <input id="imageInput" class="file-input" type="file" accept="image/*">
+
+        <label
+          for="imageInput"
+          class="label"
+        >
+          Fabric Image
+        </label>
+
+        <!-- Upload -->
+        <input
+          id="imageInput"
+          class="file-input"
+          type="file"
+          accept="image/*"
+        >
+
+        <!-- Camera -->
+        <div class="camera-controls">
+
+          <button
+            id="startCameraButton"
+            class="camera-button"
+            type="button"
+          >
+            Open Camera
+          </button>
+
+          <button
+            id="captureButton"
+            class="camera-button hidden"
+            type="button"
+          >
+            Capture Photo
+          </button>
+
+        </div>
+
       </div>
 
-      <section class="preview-section">
-        <h2 class="section-title">Image Preview</h2>
 
-        <!-- 🔥 Added container (no logic change) -->
+      <!-- ───────────────────────────── -->
+      <!-- PREVIEW -->
+      <!-- ───────────────────────────── -->
+
+      <section class="preview-section">
+
+        <h2 class="section-title">
+          Input Preview
+        </h2>
+
         <div class="preview-container">
-          <div id="previewPlaceholder" class="preview-placeholder">No image selected</div>
-          <img id="imagePreview" class="image-preview hidden" alt="Selected fabric preview">
+
+          <!-- Placeholder -->
+          <div
+            id="previewPlaceholder"
+            class="preview-placeholder"
+          >
+            No image selected
+          </div>
+
+          <!-- Uploaded image -->
+          <img
+            id="imagePreview"
+            class="image-preview hidden"
+            alt="Selected fabric preview"
+          >
+
+          <!-- Live camera -->
+          <video
+            id="cameraFeed"
+            class="image-preview hidden"
+            autoplay
+            playsinline
+          ></video>
+
         </div>
+
       </section>
 
-      <button id="predictButton" class="predict-button" type="button">Predict</button>
 
-      <!-- 🔥 Added loading indicator -->
-      <div id="loadingIndicator" class="loading hidden">
+      <!-- ───────────────────────────── -->
+      <!-- PREDICT -->
+      <!-- ───────────────────────────── -->
+
+      <button
+        id="predictButton"
+        class="predict-button"
+        type="button"
+      >
+        Predict
+      </button>
+
+
+      <!-- ───────────────────────────── -->
+      <!-- LOADING -->
+      <!-- ───────────────────────────── -->
+
+      <div
+        id="loadingIndicator"
+        class="loading hidden"
+      >
         Processing image...
       </div>
 
-      <!-- 🔥 Moved message ABOVE result -->
-      <p id="message" class="message"></p>
 
-      <!-- 🔥 Added "fade" class only -->
-      <section id="resultSection" class="result-section hidden fade" aria-live="polite">
-        <h2 class="section-title">Prediction Result</h2>
+      <!-- ───────────────────────────── -->
+      <!-- MESSAGE -->
+      <!-- ───────────────────────────── -->
+
+      <p
+        id="message"
+        class="message"
+      ></p>
+
+
+      <!-- ───────────────────────────── -->
+      <!-- RESULTS -->
+      <!-- ───────────────────────────── -->
+
+      <section
+        id="resultSection"
+        class="result-section hidden fade"
+        aria-live="polite"
+      >
+
+        <h2 class="section-title">
+          Inspection Result
+        </h2>
+
+
+        <!-- RESULT GRID -->
 
         <div class="result-grid">
+
+          <!-- Prediction -->
           <div class="result-item">
-            <span class="result-label">Predicted Class</span>
-            <span id="predictedClass" class="result-value">-</span>
+
+            <span class="result-label">
+              Predicted Class
+            </span>
+
+            <span
+              id="predictedClass"
+              class="result-value"
+            >
+              -
+            </span>
+
           </div>
+
+
+          <!-- Confidence -->
           <div class="result-item">
-            <span class="result-label">Confidence</span>
-            <span id="confidenceValue" class="result-value">-</span>
+
+            <span class="result-label">
+              Confidence
+            </span>
+
+            <span
+              id="confidenceValue"
+              class="result-value"
+            >
+              -
+            </span>
+
           </div>
+
+
+          <!-- Status -->
           <div class="result-item">
-            <span class="result-label">Status</span>
-            <span id="statusBadge" class="status-badge">-</span>
+
+            <span class="result-label">
+              Status
+            </span>
+
+            <span
+              id="statusBadge"
+              class="status-badge"
+            >
+              -
+            </span>
+
           </div>
+
         </div>
 
-       
+
+        <!-- ───────────────────────────── -->
+        <!-- AI LOCALIZATION -->
+        <!-- ───────────────────────────── -->
+
+        <div
+          id="heatmapSection"
+          class="heatmap-section hidden"
+        >
+
+          <h3 class="heatmap-title">
+            AI Localization Result
+          </h3>
+
+          <div class="heatmap-grid">
+
+            <!-- Original -->
+            <div class="heatmap-card">
+
+              <p class="heatmap-label">
+                Original Image
+              </p>
+
+              <img
+                id="originalResultImage"
+                class="heatmap-image"
+                alt="Original uploaded image"
+              >
+
+            </div>
+
+
+            <!-- GradCAM -->
+            <div class="heatmap-card">
+
+              <p class="heatmap-label">
+                Detected Defect Region
+              </p>
+
+              <img
+                id="heatmapImage"
+                class="heatmap-image"
+                alt="AI localization result"
+              >
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ───────────────────────────── -->
+      <!-- BATCH INSPECTION -->
+      <!-- ───────────────────────────── -->
+
+      <section class="batch-section">
+
+        <h2 class="section-title">
+          Batch Inspection
+        </h2>
+
+        <p class="batch-subtitle">
+          Upload multiple fabric images for automated inspection.
+        </p>
+
+        <!-- Batch Upload -->
+        <input
+          id="batchImageInput"
+          class="file-input"
+          type="file"
+          accept="image/*"
+          multiple
+        >
+
+        <!-- Batch Predict -->
+        <button
+          id="batchPredictButton"
+          class="predict-button"
+          type="button"
+        >
+          Run Batch Inspection
+        </button>
+
+        <!-- Batch Summary -->
+        <div
+          id="batchSummary"
+          class="batch-summary hidden"
+        ></div>
+
+        <!-- Batch Results -->
+        <div
+          id="batchResults"
+          class="batch-results-grid"
+        ></div>
+
       </section>
 
     </section>
+
   </main>
 
   <script src="script.js"></script>
+
 </body>
 </html>
