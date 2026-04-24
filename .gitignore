@@ -1,0 +1,20 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Data
+data/
+*.csv
+
+# Models
+saved_models/
+*.pth
+
+# Results
+results/
+*.png
+*.jpg
+
+# System
+.DS_Store
