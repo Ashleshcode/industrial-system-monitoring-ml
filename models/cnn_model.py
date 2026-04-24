@@ -79,7 +79,7 @@ def save_model(model, path: str):
 
 def load_model(num_classes: int, path: str, device):
     model = build_model(num_classes=num_classes, freeze_backbone=False)
-    model.load_state_dict(torch.load(path, map_location=device, weights_only=True))
+    model.load_state_dict(torch.load(path, map_location=device))
     model.to(device)
     model.eval()
     print(f"✅ Model loaded from: {path}")
