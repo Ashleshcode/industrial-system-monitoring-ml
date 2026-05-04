@@ -1,8 +1,5 @@
 # ============================================================
 # models/cnn_model.py
-#
-# Defines the transfer learning model using pretrained ResNet18.
-# Optimized for better generalization on fabric defect data.
 # ============================================================
 
 import torch
@@ -10,38 +7,37 @@ import torch.nn as nn
 from torchvision import models
 
 
-# ────────────────────────────────────────────────
-# MODEL BUILDER
-# ────────────────────────────────────────────────
-
-def build_model(num_classes: int, freeze_backbone: bool = True):
+def build_model(num_classes: int, freeze_backbone: bool = False):
     """
-    Uses ResNet18 (better generalization than ResNet50 for small datasets).
+    EfficientNetV2-S with custom classifier head.
+    freeze_backbone=False means full fine-tuning (recommended).
+    freeze_backbone=True only trains the classifier head.
     """
+    model = models.efficientnet_v2_s(
+        weights=models.EfficientNet_V2_S_Weights.DEFAULT
+    )
 
-    # 🔥 BACK TO RESNET18 (IMPORTANT)
-    model = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
-
-    # Freeze backbone if needed
     if freeze_backbone:
-        for param in model.parameters():
+        for param in model.features.parameters():
             param.requires_grad = False
+    else:
+        # Unfreeze everything — full fine-tuning
+        for param in model.parameters():
+            param.requires_grad = True
 
-    # ResNet18 final layer input = 512
-    in_features = model.fc.in_features
+    in_features = model.classifier[1].in_features
 
-    # 🔥 Clean, stable classifier head
-    model.fc = nn.Sequential(
+    model.classifier = nn.Sequential(
         nn.Dropout(p=0.3),
-        nn.Linear(in_features, num_classes)
+        nn.Linear(in_features, 512),
+        nn.BatchNorm1d(512),
+        nn.ReLU(),
+        nn.Dropout(p=0.2),
+        nn.Linear(512, num_classes)
     )
 
     return model
 
-
-# ────────────────────────────────────────────────
-# DEVICE HELPER
-# ────────────────────────────────────────────────
 
 def get_device():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -49,17 +45,13 @@ def get_device():
     return device
 
 
-# ────────────────────────────────────────────────
-# MODEL SUMMARY
-# ────────────────────────────────────────────────
-
 def print_model_summary(model, num_classes: int):
     total_params     = sum(p.numel() for p in model.parameters())
     trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     frozen_params    = total_params - trainable_params
 
     print("=" * 45)
-    print("         MODEL SUMMARY — ResNet18")
+    print("      MODEL SUMMARY — EfficientNetV2-S")
     print("=" * 45)
     print(f"  Output classes    : {num_classes}")
     print(f"  Total params      : {total_params:,}")
@@ -68,42 +60,21 @@ def print_model_summary(model, num_classes: int):
     print("=" * 45)
 
 
-# ────────────────────────────────────────────────
-# SAVE / LOAD HELPERS
-# ────────────────────────────────────────────────
-
 def save_model(model, path: str):
     torch.save(model.state_dict(), path)
-    print(f"✅ Model saved to: {path}")
+    print(f"Model saved to: {path}")
 
 
 def load_model(num_classes: int, path: str, device):
+    """
+    Loads saved model weights for inference.
+    Always loads with full fine-tuning architecture.
+    """
     model = build_model(num_classes=num_classes, freeze_backbone=False)
-    model.load_state_dict(torch.load(path, map_location=device))
+    model.load_state_dict(
+        torch.load(path, map_location=device, weights_only=True)
+    )
     model.to(device)
     model.eval()
-    print(f"✅ Model loaded from: {path}")
+    print(f"Model loaded from: {path}")
     return model
-
-
-# ────────────────────────────────────────────────
-# SANITY CHECK
-# ────────────────────────────────────────────────
-
-if __name__ == "__main__":
-
-    NUM_CLASSES = 9
-
-    device = get_device()
-    model  = build_model(num_classes=NUM_CLASSES, freeze_backbone=True)
-    model  = model.to(device)
-
-    print_model_summary(model, NUM_CLASSES)
-
-    dummy_input  = torch.randn(2, 3, 224, 224).to(device)
-    dummy_output = model(dummy_input)
-
-    print(f"\n  Dummy input shape  : {dummy_input.shape}")
-    print(f"  Dummy output shape : {dummy_output.shape}")
-    print(f"  ← Should be [2, {NUM_CLASSES}]")
-    print("\n✅ Model ready!")
