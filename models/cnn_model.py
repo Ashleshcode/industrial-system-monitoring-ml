@@ -6,6 +6,9 @@ import torch
 import torch.nn as nn
 from torchvision import models
 
+# 🔥 ADD THIS IMPORT
+from utils.model_loader import ensure_model
+
 
 def build_model(num_classes: int, freeze_backbone: bool = False):
     """
@@ -70,11 +73,18 @@ def load_model(num_classes: int, path: str, device):
     Loads saved model weights for inference.
     Always loads with full fine-tuning architecture.
     """
+
+    # 🔥 CRITICAL FIX — ensures model exists
+    ensure_model()
+
     model = build_model(num_classes=num_classes, freeze_backbone=False)
+
     model.load_state_dict(
         torch.load(path, map_location=device, weights_only=True)
     )
+
     model.to(device)
     model.eval()
+
     print(f"Model loaded from: {path}")
     return model

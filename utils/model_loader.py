@@ -1,7 +1,7 @@
 import os
 import gdown
 
-MODEL_URL = "https://drive.google.com/uc?id=14h5qabga7K1s14dxkB-dd95GSatyAhsO"
+MODEL_URL = "https://drive.google.com/file/d/1Q68-NJlNvlQmp_UIaBUhkeLT_h52a3K2/view?usp=sharing"
 MODEL_PATH = "saved_models/best_model.pth"
 
 

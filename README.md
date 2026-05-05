@@ -1,282 +1,315 @@
-🏭 Fabric Defect Detection System
+
+# 🧵 Fabric Defect Detection System
 
 AI-powered industrial system for detecting fabric defects using Computer Vision and Deep Learning.
 
-🚨 IMPORTANT (READ FIRST)
-❌ Do NOT push:
+---
+
+# 🚨 IMPORTANT (READ FIRST)
+
+## ❌ DO NOT PUSH
+
+```
 data/
 saved_models/
 venv/
-❌ Do NOT change folder structure
-❌ Do NOT rename classes
-✅ Always pull latest changes before working
-⚙️ SETUP (ONE-TIME)
-1. Clone repo
+```
+
+## ❌ DO NOT MODIFY
+
+* Folder structure
+* Class names / order
+* Core inference pipeline
+
+## ✅ ALWAYS
+
+* Pull latest changes before working
+* Test before pushing
+
+---
+
+# ⚙️ SETUP (ONE-TIME)
+
+## 1️⃣ Clone Repository
+
+```
 git clone https://github.com/Ashleshcode/industrial-system-monitoring-ml.git
 cd industrial-system-monitoring-ml
-2. Create virtual environment
+```
+
+## 2️⃣ Create Virtual Environment
+
+```
 python -m venv venv
 venv\Scripts\activate
-3. Install dependencies
+```
+
+## 3️⃣ Install Dependencies
+
+```
 pip install -r requirements.txt
-🤖 MODEL SYSTEM (AUTO)
+```
 
-✅ No manual model download required
+---
 
-When you run prediction for the first time:
+# 📥 MODEL DOWNLOAD (AUTOMATIC)
 
-model is automatically downloaded from Google Drive
-saved in saved_models/best_model.pth
-🚀 HOW TO RUN
-🔹 Single Image Prediction
-python inference/predict.py "path_to_image.jpg"
-🔹 Batch Prediction
-python inference/batch_predict.py "folder_path"
-🔹 Run UI
-streamlit run frontend/app.py
-🧠 SYSTEM OVERVIEW
-Image → Preprocessing → CNN → Prediction → Decision Logic → UI
-📁 PROJECT STRUCTURE
-data_preprocessing/   → transforms
-models/               → CNN model
-training/             → training pipeline
-inference/            → prediction scripts
-frontend/             → Streamlit UI
-utils/                → helpers (model loader, etc.)
-👥 TEAM EXECUTION PLAN
-🧑‍💻 MODEL ENGINEER
-🎯 Goal:
+The trained model is **NOT stored in this repository** due to size constraints.
 
-Improve accuracy + robustness
+### 🔗 Google Drive Model Link
 
-🔧 Work in:
+```
+"https://drive.google.com/file/d/1Q68-NJlNvlQmp_UIaBUhkeLT_h52a3K2/view?usp=sharing" (just in case it does not auto download )
+```
+
+---
+
+## ⚙️ How it Works
+
+* On first run:
+
+  * If model file is missing:
+
+```
+saved_models/best_model.pth
+```
+
+* It is automatically downloaded from Google Drive
+
+* After download:
+
+  * Stored locally inside `saved_models/`
+  * Reused for all future runs
+
+---
+
+## ✅ You DO NOT need to:
+
+* manually download model
+* place `.pth` file manually
+
+---
+
+## ⚠️ Notes
+
+* Internet required only for first run
+* Do NOT delete `saved_models/` after download
+* Do NOT push `.pth` file to GitHub
+
+---
+
+## 🔁 If Model is Missing
+
+Just run:
+
+```
+uvicorn backend.api:app --reload
+```
+
+Model will download automatically.
+
+---
+
+# 🧠 SYSTEM OVERVIEW
+
+```
+Image → Frontend → Backend (FastAPI) → CV Pipeline → Model → Decision → UI
+```
+
+---
+
+# 🚀 HOW TO RUN
+
+## 🔹 Start Backend
+
+```
+uvicorn backend.api:app --reload
+```
+
+---
+
+## 🔹 Open Frontend
+
+```
+start frontend\index.html
+```
+
+---
+
+## 🔹 Use Application
+
+1. Upload image
+2. Click Predict
+3. View result
+
+---
+
+# 📂 PROJECT STRUCTURE
+
+```
+backend/                → FastAPI API server
+cv_pipeline/            → Core inference logic
+frontend/               → HTML/CSS/JS UI
+models/                 → Model architecture
+training/               → Training pipeline
+data_preprocessing/     → Data transforms
+saved_models/           → Model storage (auto-downloaded)
+```
+
+---
+
+# 🎯 CURRENT SYSTEM STATUS
+
+```
+✔ Model trained and stabilized
+✔ Dataset cleaned and optimized
+✔ CV pipeline implemented
+✔ Backend API working
+✔ Frontend UI complete
+✔ End-to-end system working
+
+```
+
+---
+
+# ⚠️ TEAM INSTRUCTIONS (CRITICAL)
+
+## 🔴 CORE SYSTEM — DO NOT TOUCH
+
+```
+cv_pipeline/
 models/
 training/
 data_preprocessing/
-✅ Tasks:
-try EfficientNet / ConvNeXt
-tune augmentation + LR
-reduce class confusion
-⚠️ Rules:
-❌ do NOT change class order
-❌ do NOT push .pth
-❌ do NOT break inference
-🎨 FRONTEND ENGINEER
-🎯 Goal:
+```
 
-Make system usable for factory workers
+🚫 Any changes here can break:
 
-🔧 Work in:
-frontend/app.py
-✅ Tasks:
-improve layout (cards, spacing)
-multi-image upload
-clear status display
-📷 CV ENGINEER
-🎯 Goal:
-
-Real-time detection
-
-🔧 Work:
-create: cv_integration.py
-Tasks:
-webcam capture
-real-time prediction
-display output
-📊 DATA ENGINEER
-🎯 Goal:
-
-Improve dataset quality
-
-Tasks:
-find misclassified images
-balance dataset
-improve quality
-🧩 SYSTEM INTEGRATION
-🎯 Goal:
-
-Connect everything
-
-Tasks:
-UI + model integration
-optimize speed
-logging
-📊 TESTING GUIDELINES
-fabric fills frame
-proper lighting
-no heavy blur
-🚧 CURRENT LIMITATIONS
-confidence may be low (intentional calibration)
-similar defects may overlap
-dataset limited
-🚀 ROADMAP
-Phase 1 ✅
-training
-evaluation
-inference
-Phase 2 🚧
-UI
-batch processing
-Phase 3
-real-time CV
-robustness
-Phase 4
-deployment
-# 🤖 LLM PROMPTS (USE THIS FOR YOUR TASKS)
-
-Each role should use these prompts with ChatGPT / Claude / any LLM.
+* model loading
+* preprocessing
+* predictions
 
 ---
 
-# 🧑‍💻 MODEL ENGINEER — PROMPT
+## 🟡 FRONTEND TEAM
 
-Use this when improving model:
+You may modify ONLY:
 
 ```
-I am working on a fabric defect detection system using PyTorch.
+frontend/index.html
+frontend/style.css
+```
 
-Current setup:
-- Model: ResNet (transfer learning)
-- Input: 224x224 grayscale converted to 3-channel
-- Classes: ['Broken stitch', 'Needle mark', 'Pinched fabric', 'Vertical', 'defect free', 'hole', 'horizontal', 'lines', 'stain']
-- Dataset is imbalanced
-- We already use augmentation and class weights
-- Inference pipeline is already built and MUST NOT break
+### ❌ DO NOT:
 
-Your task:
-- Suggest improvements to increase real-world robustness (not just validation accuracy)
-- Focus on reducing confusion between visually similar defects
-- Suggest improvements ONLY in:
-  - model architecture
-  - augmentation
-  - training strategy
+* Change element IDs
+* Modify `script.js` logic
+* Change API URL
 
-STRICT RULES:
-- Do NOT change class order
-- Do NOT modify inference function signature
-- Do NOT suggest breaking folder structure
-- Code must be directly usable in PyTorch
+### ✅ YOU CAN:
 
-Output:
-- Explain change briefly
-- Then give FULL updated code block
+* Improve UI/UX
+* Add animations
+* Improve layout
+
+---
+
+## 🟡 BACKEND TEAM
+
+You may modify ONLY:
+
+```
+backend/api.py
+```
+
+### ❌ DO NOT:
+
+* Change `/predict` endpoint
+* Change response format
+* Modify model loading
+
+### ✅ YOU CAN:
+
+* Add logging
+* Improve performance
+* Add optional endpoints (without breaking `/predict`)
+
+---
+
+# 📡 API CONTRACT (DO NOT CHANGE)
+
+### POST `/predict`
+
+**Request:**
+
+* form-data → file
+
+**Response:**
+
+```json
+{
+  "predicted_class": "stain",
+  "confidence": 92.3,
+  "status": "CONFIDENT"
+}
 ```
 
 ---
 
-# 🎨 FRONTEND ENGINEER — PROMPT
+# 🧪 TESTING CHECKLIST
 
-```
-I am building a Streamlit UI for a fabric defect detection system.
+Before demo, verify:
 
-Backend:
-- predict(image_path) → returns (class, confidence, scores)
-
-Your task:
-- Improve UI/UX for non-technical factory workers
-- Add:
-  - multi-image upload
-  - better layout (cards, sections)
-  - visual status (OK / DEFECT / REVIEW)
-  - loading indicators
-
-STRICT RULES:
-- Do NOT modify backend logic
-- Do NOT change predict() function
-- Keep everything inside Streamlit
-
-Goal:
-Make UI so simple that a factory worker can use it without training
-
-Output:
-- Give FULL updated app.py code
-```
+* Backend running
+* Frontend loads
+* Image preview works
+* Prediction works
+* Status colors correct
+* No console errors
 
 ---
 
-# 📷 CV ENGINEER — PROMPT
+# 🚧 CURRENT LIMITATIONS
 
-```
-I want to integrate real-time image capture into a fabric defect detection system.
-
-Current system:
-- predict(image_path) works
-- Model already trained
-- Need real-time input
-
-Your task:
-- Implement webcam-based detection using OpenCV
-- Capture frame → send to model → display result
-
-STRICT RULES:
-- Do NOT modify existing model code
-- Keep inference logic same
-- Write separate file (cv_integration.py)
-
-Output:
-- Complete working code
-- Minimal dependencies
-```
+* Similar defects may overlap
+* Dataset size limited
+* Confidence may vary on real-world samples
 
 ---
 
-# 📊 DATA ENGINEER — PROMPT
+# 🚀 FUTURE IMPROVEMENTS
 
-```
-I am working on a fabric defect dataset for classification.
-
-Problems:
-- Class imbalance
-- Some classes visually similar
-- Model struggles on real-world images
-
-Your task:
-- Suggest data improvements:
-  - augmentation strategies
-  - balancing techniques
-  - dataset cleaning methods
-
-STRICT RULES:
-- Do NOT suggest changing labels
-- Do NOT suggest unrealistic data collection
-
-Output:
-- Actionable steps (not theory)
-```
+* Improved dataset quality
+* Real-time webcam detection
+* Edge deployment (Jetson / Raspberry Pi)
+* Better confidence calibration
 
 ---
 
-# 🧩 SYSTEM INTEGRATION — PROMPT
+# 🏁 FINAL NOTE
 
-```
-I am integrating multiple components of a fabric defect detection system:
+This system prioritizes:
 
-- PyTorch model
-- Streamlit UI
-- Batch processing
-- (Future) webcam input
+* Stability
+* Simplicity
+* Real-world usability
 
-Your task:
-- Suggest how to structure system cleanly
-- Improve performance and response time
-- Add logging system
-
-STRICT RULES:
-- Do NOT break existing modules
-- Keep modular structure
-
-Output:
-- Practical architecture suggestions
-```
+NOT overengineering.
 
 ---
 
-# ⚠️ FINAL RULE
+## 👨‍💻 Author
 
-Always include this line in your prompt:
+Core ML, CV, and System Integration:
+
+* Aryan Mangalore
+
+---
+
+## 🚀 STATUS
 
 ```
-"Do NOT break existing pipeline or file structure"
+✔ Fully working end-to-end system
+✔ Ready for demo
+✔ Ready for further improvements
 ```
-
-This prevents bad AI suggestions.

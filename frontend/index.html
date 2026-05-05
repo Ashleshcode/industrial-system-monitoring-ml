@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fabric Defect Detection</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <section class="card">
+
+      <h1 class="title">Fabric Defect Detection</h1>
+      <p class="subtitle">Upload a fabric image and run defect prediction.</p>
+      <p class="hint">Supported formats: JPG, PNG, BMP</p>
+
+      <div class="form-group">
+        <label for="imageInput" class="label">Fabric Image</label>
+        <input id="imageInput" class="file-input" type="file" accept="image/*">
+      </div>
+
+      <section class="preview-section">
+        <h2 class="section-title">Image Preview</h2>
+
+        <!-- 🔥 Added container (no logic change) -->
+        <div class="preview-container">
+          <div id="previewPlaceholder" class="preview-placeholder">No image selected</div>
+          <img id="imagePreview" class="image-preview hidden" alt="Selected fabric preview">
+        </div>
+      </section>
+
+      <button id="predictButton" class="predict-button" type="button">Predict</button>
+
+      <!-- 🔥 Added loading indicator -->
+      <div id="loadingIndicator" class="loading hidden">
+        Processing image...
+      </div>
+
+      <!-- 🔥 Moved message ABOVE result -->
+      <p id="message" class="message"></p>
+
+      <!-- 🔥 Added "fade" class only -->
+      <section id="resultSection" class="result-section hidden fade" aria-live="polite">
+        <h2 class="section-title">Prediction Result</h2>
+
+        <div class="result-grid">
+          <div class="result-item">
+            <span class="result-label">Predicted Class</span>
+            <span id="predictedClass" class="result-value">-</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Confidence</span>
+            <span id="confidenceValue" class="result-value">-</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Status</span>
+            <span id="statusBadge" class="status-badge">-</span>
+          </div>
+        </div>
+
+       
+      </section>
+
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
