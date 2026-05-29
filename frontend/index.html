@@ -11,7 +11,7 @@
   >
 
   <title>
-    Fabric Defect Detection
+    FabricAI Dashboard
   </title>
 
   <link rel="stylesheet" href="style.css">
@@ -20,323 +20,507 @@
 
 <body>
 
-  <main class="page">
+  <div class="dashboard-layout">
 
-    <section class="card">
+    <!-- ───────────────────────────── -->
+    <!-- SIDEBAR -->
+    <!-- ───────────────────────────── -->
 
-      <!-- ───────────────────────────── -->
+    <aside class="sidebar">
+
+      <div class="sidebar-brand">
+
+        <div class="brand-logo">
+          F
+        </div>
+
+        <div>
+
+          <h2 class="brand-title">
+            FabricAI
+          </h2>
+
+          <p class="brand-subtitle">
+            Smart Fabric Inspection
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- SYSTEM STATUS -->
+
+      <div class="system-status">
+
+        <div class="status-dot"></div>
+
+        <div>
+
+          <p class="status-title">
+            System Status
+          </p>
+
+          <p class="status-online">
+            Online
+          </p>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+
+    <!-- ───────────────────────────── -->
+    <!-- MAIN -->
+    <!-- ───────────────────────────── -->
+
+    <main class="dashboard-main">
+
       <!-- HEADER -->
+
+      <header class="dashboard-header">
+
+        <div>
+
+          <h1 class="title">
+            Fabric Defect Detection Dashboard
+          </h1>
+
+          <p class="subtitle">
+            AI-powered fabric quality inspection system
+          </p>
+
+        </div>
+
+        <div class="header-badges">
+
+          <div class="header-card">
+
+            <span class="header-card-label">
+              Model
+            </span>
+
+            <span class="header-card-value">
+              EfficientNetV2-S
+            </span>
+
+          </div>
+
+          <div class="header-card">
+
+            <span class="header-card-label">
+              Inspection Mode
+            </span>
+
+            <span class="header-card-value">
+              Real-Time
+            </span>
+
+          </div>
+
+        </div>
+
+      </header>
+
+
+      <!-- ───────────────────────────── -->
+      <!-- MAIN GRID -->
       <!-- ───────────────────────────── -->
 
-      <h1 class="title">
-        Fabric Defect Detection
-      </h1>
-
-      <p class="subtitle">
-        Upload or capture a fabric image and run AI-based defect inspection.
-      </p>
-
-      <p class="hint">
-        Supported formats: JPG, PNG, BMP
-      </p>
+      <div class="dashboard-grid">
 
 
-      <!-- ───────────────────────────── -->
-      <!-- IMAGE INPUT -->
-      <!-- ───────────────────────────── -->
+        <!-- LEFT COLUMN -->
 
-      <div class="form-group">
+        <div class="left-column">
 
-        <label
-          for="imageInput"
-          class="label"
-        >
-          Fabric Image
-        </label>
 
-        <!-- Upload -->
-        <input
-          id="imageInput"
-          class="file-input"
-          type="file"
-          accept="image/*"
-        >
+          <!-- INPUT CARD -->
 
-        <!-- Camera -->
-        <div class="camera-controls">
+          <section class="dashboard-card">
 
-          <button
-            id="startCameraButton"
-            class="camera-button"
-            type="button"
+            <div class="card-header">
+
+              <h2 class="card-title">
+                1. Input Fabric Image
+              </h2>
+
+              <p class="card-subtitle">
+                Upload or capture a fabric image
+              </p>
+
+            </div>
+
+
+            <!-- FILE INPUT -->
+
+            <div class="upload-box">
+
+              <input
+                id="imageInput"
+                class="file-input"
+                type="file"
+                accept="image/*"
+              >
+
+              <p class="upload-title">
+                Upload Fabric Image
+              </p>
+
+              <p class="upload-hint">
+                Supported formats:
+                JPG, PNG, BMP
+              </p>
+
+            </div>
+
+
+            <!-- CAMERA SECTION -->
+
+            <div class="camera-section">
+
+              <div class="camera-controls">
+
+                <button
+                  id="startCameraButton"
+                  class="camera-button"
+                  type="button"
+                >
+                  Open Camera
+                </button>
+
+                <button
+                  id="captureButton"
+                  class="camera-button hidden"
+                  type="button"
+                >
+                  Capture Photo
+                </button>
+
+              </div>
+
+
+              <!-- MOBILE CAMERA PREVIEW -->
+
+              <div class="mobile-camera-preview">
+
+                <video
+                  id="cameraFeed"
+                  class="image-preview hidden"
+                  autoplay
+                  playsinline
+                ></video>
+
+              </div>
+
+            </div>
+
+
+            <!-- PREDICT -->
+
+            <button
+              id="predictButton"
+              class="predict-button"
+              type="button"
+            >
+              Run AI Inspection
+            </button>
+
+
+            <!-- LOADING -->
+
+            <div
+              id="loadingIndicator"
+              class="loading hidden"
+            >
+              Processing image...
+            </div>
+
+
+            <!-- MESSAGE -->
+
+            <p
+              id="message"
+              class="message"
+            ></p>
+
+          </section>
+
+
+          <!-- IMAGE PREVIEW -->
+
+          <section class="dashboard-card">
+
+            <div class="card-header">
+
+              <h2 class="card-title">
+                2. Image Preview
+              </h2>
+
+              <p class="card-subtitle">
+                View uploaded fabric image
+              </p>
+
+            </div>
+
+            <div class="preview-container">
+
+              <div
+                id="previewPlaceholder"
+                class="preview-placeholder"
+              >
+                No image selected
+              </div>
+
+              <img
+                id="imagePreview"
+                class="image-preview hidden"
+                alt="Selected fabric preview"
+              >
+
+            </div>
+
+          </section>
+
+        </div>
+
+
+        <!-- RIGHT COLUMN -->
+
+        <div class="right-column">
+
+
+          <!-- RESULT -->
+
+          <section
+            id="resultSection"
+            class="dashboard-card result-section hidden fade"
           >
-            Open Camera
-          </button>
 
-          <button
-            id="captureButton"
-            class="camera-button hidden"
-            type="button"
-          >
-            Capture Photo
-          </button>
+            <div class="card-header">
+
+              <h2 class="card-title">
+                3. Inspection Result
+              </h2>
+
+              <p class="card-subtitle">
+                AI analysis results and classification
+              </p>
+
+            </div>
+
+
+            <div class="result-grid">
+
+              <div class="result-item">
+
+                <span class="result-label">
+                  Predicted Defect
+                </span>
+
+                <span
+                  id="predictedClass"
+                  class="result-value"
+                >
+                  -
+                </span>
+
+              </div>
+
+
+              <div class="result-item">
+
+                <span class="result-label">
+                  Confidence Score
+                </span>
+
+                <span
+                  id="confidenceValue"
+                  class="result-value"
+                >
+                  -
+                </span>
+
+              </div>
+
+
+              <div class="result-item">
+
+                <span class="result-label">
+                  Inspection Status
+                </span>
+
+                <span
+                  id="statusBadge"
+                  class="status-badge"
+                >
+                  -
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- AI LOCALIZATION -->
+
+            <div
+              id="heatmapSection"
+              class="heatmap-section hidden"
+            >
+
+              <h3 class="heatmap-title">
+                4. AI Localization Result
+              </h3>
+
+              <p class="card-subtitle">
+                Defect regions detected by AI
+              </p>
+
+              <div class="heatmap-grid">
+
+                <div class="heatmap-card">
+
+                  <p class="heatmap-label">
+                    Original Image
+                  </p>
+
+                  <img
+                    id="originalResultImage"
+                    class="heatmap-image"
+                    alt="Original uploaded image"
+                  >
+
+                </div>
+
+
+                <div class="heatmap-card">
+
+                  <p class="heatmap-label">
+                    Detected Defect Region
+                  </p>
+
+                  <img
+                    id="heatmapImage"
+                    class="heatmap-image"
+                    alt="AI localization result"
+                  >
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- HISTORY -->
+
+          <section class="dashboard-card history-section">
+
+            <div class="card-header">
+
+              <h2 class="card-title">
+                5. Inspection History
+              </h2>
+
+              <p class="card-subtitle">
+                Recent AI inspection records
+              </p>
+
+            </div>
+
+            <div class="history-controls">
+
+              <button
+                id="refreshHistoryButton"
+                class="camera-button"
+                type="button"
+              >
+                Refresh History
+              </button>
+
+              <button
+                id="clearHistoryButton"
+                class="camera-button"
+                type="button"
+              >
+                Clear History
+              </button>
+
+            </div>
+
+            <div
+              id="historyContainer"
+              class="history-container"
+            >
+
+              <p class="history-empty">
+                No inspection history yet.
+              </p>
+
+            </div>
+
+          </section>
+
+
+          <!-- BATCH -->
+
+          <section class="dashboard-card batch-section">
+
+            <div class="card-header">
+
+              <h2 class="card-title">
+                6. Batch Inspection
+              </h2>
+
+              <p class="card-subtitle">
+                Analyze multiple fabric images
+              </p>
+
+            </div>
+
+            <input
+              id="batchImageInput"
+              class="file-input"
+              type="file"
+              accept="image/*"
+              multiple
+            >
+
+            <button
+              id="batchPredictButton"
+              class="predict-button"
+              type="button"
+            >
+              Run Batch Inspection
+            </button>
+
+            <div
+              id="batchSummary"
+              class="batch-summary hidden"
+            ></div>
+
+            <div
+              id="batchResults"
+              class="batch-results-grid"
+            ></div>
+
+          </section>
 
         </div>
 
       </div>
 
+    </main>
 
-      <!-- ───────────────────────────── -->
-      <!-- PREVIEW -->
-      <!-- ───────────────────────────── -->
-
-      <section class="preview-section">
-
-        <h2 class="section-title">
-          Input Preview
-        </h2>
-
-        <div class="preview-container">
-
-          <!-- Placeholder -->
-          <div
-            id="previewPlaceholder"
-            class="preview-placeholder"
-          >
-            No image selected
-          </div>
-
-          <!-- Uploaded image -->
-          <img
-            id="imagePreview"
-            class="image-preview hidden"
-            alt="Selected fabric preview"
-          >
-
-          <!-- Live camera -->
-          <video
-            id="cameraFeed"
-            class="image-preview hidden"
-            autoplay
-            playsinline
-          ></video>
-
-        </div>
-
-      </section>
-
-
-      <!-- ───────────────────────────── -->
-      <!-- PREDICT -->
-      <!-- ───────────────────────────── -->
-
-      <button
-        id="predictButton"
-        class="predict-button"
-        type="button"
-      >
-        Predict
-      </button>
-
-
-      <!-- ───────────────────────────── -->
-      <!-- LOADING -->
-      <!-- ───────────────────────────── -->
-
-      <div
-        id="loadingIndicator"
-        class="loading hidden"
-      >
-        Processing image...
-      </div>
-
-
-      <!-- ───────────────────────────── -->
-      <!-- MESSAGE -->
-      <!-- ───────────────────────────── -->
-
-      <p
-        id="message"
-        class="message"
-      ></p>
-
-
-      <!-- ───────────────────────────── -->
-      <!-- RESULTS -->
-      <!-- ───────────────────────────── -->
-
-      <section
-        id="resultSection"
-        class="result-section hidden fade"
-        aria-live="polite"
-      >
-
-        <h2 class="section-title">
-          Inspection Result
-        </h2>
-
-
-        <!-- RESULT GRID -->
-
-        <div class="result-grid">
-
-          <!-- Prediction -->
-          <div class="result-item">
-
-            <span class="result-label">
-              Predicted Class
-            </span>
-
-            <span
-              id="predictedClass"
-              class="result-value"
-            >
-              -
-            </span>
-
-          </div>
-
-
-          <!-- Confidence -->
-          <div class="result-item">
-
-            <span class="result-label">
-              Confidence
-            </span>
-
-            <span
-              id="confidenceValue"
-              class="result-value"
-            >
-              -
-            </span>
-
-          </div>
-
-
-          <!-- Status -->
-          <div class="result-item">
-
-            <span class="result-label">
-              Status
-            </span>
-
-            <span
-              id="statusBadge"
-              class="status-badge"
-            >
-              -
-            </span>
-
-          </div>
-
-        </div>
-
-
-        <!-- ───────────────────────────── -->
-        <!-- AI LOCALIZATION -->
-        <!-- ───────────────────────────── -->
-
-        <div
-          id="heatmapSection"
-          class="heatmap-section hidden"
-        >
-
-          <h3 class="heatmap-title">
-            AI Localization Result
-          </h3>
-
-          <div class="heatmap-grid">
-
-            <!-- Original -->
-            <div class="heatmap-card">
-
-              <p class="heatmap-label">
-                Original Image
-              </p>
-
-              <img
-                id="originalResultImage"
-                class="heatmap-image"
-                alt="Original uploaded image"
-              >
-
-            </div>
-
-
-            <!-- GradCAM -->
-            <div class="heatmap-card">
-
-              <p class="heatmap-label">
-                Detected Defect Region
-              </p>
-
-              <img
-                id="heatmapImage"
-                class="heatmap-image"
-                alt="AI localization result"
-              >
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- ───────────────────────────── -->
-      <!-- BATCH INSPECTION -->
-      <!-- ───────────────────────────── -->
-
-      <section class="batch-section">
-
-        <h2 class="section-title">
-          Batch Inspection
-        </h2>
-
-        <p class="batch-subtitle">
-          Upload multiple fabric images for automated inspection.
-        </p>
-
-        <!-- Batch Upload -->
-        <input
-          id="batchImageInput"
-          class="file-input"
-          type="file"
-          accept="image/*"
-          multiple
-        >
-
-        <!-- Batch Predict -->
-        <button
-          id="batchPredictButton"
-          class="predict-button"
-          type="button"
-        >
-          Run Batch Inspection
-        </button>
-
-        <!-- Batch Summary -->
-        <div
-          id="batchSummary"
-          class="batch-summary hidden"
-        ></div>
-
-        <!-- Batch Results -->
-        <div
-          id="batchResults"
-          class="batch-results-grid"
-        ></div>
-
-      </section>
-
-    </section>
-
-  </main>
+  </div>
 
   <script src="script.js"></script>
 
 </body>
+
 </html>

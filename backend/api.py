@@ -1,6 +1,6 @@
 # ============================================================
 # backend/api.py
-# FINAL — SINGLE + BATCH INSPECTION API
+# FINAL — SINGLE + BATCH + HISTORY API
 # ============================================================
 
 import sys
@@ -12,6 +12,8 @@ sys.path.append(str(Path(__file__).resolve().parent.parent))
 import shutil
 import uuid
 import time
+import json
+from datetime import datetime
 
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
@@ -28,6 +30,10 @@ app = FastAPI()
 
 detector = FabricDefectDetector()
 
+# IMPORTANT:
+# Replace this with your CURRENT ngrok URL
+BASE_URL = "https://mama-rasping-autopilot.ngrok-free.dev"
+
 
 # ────────────────────────────────────────────────
 # CORS
@@ -35,13 +41,9 @@ detector = FabricDefectDetector()
 
 app.add_middleware(
     CORSMiddleware,
-
     allow_origins=["*"],
-
     allow_credentials=True,
-
     allow_methods=["*"],
-
     allow_headers=["*"],
 )
 
@@ -55,6 +57,18 @@ UPLOAD_DIR.mkdir(exist_ok=True)
 
 OUTPUT_DIR = Path("outputs")
 OUTPUT_DIR.mkdir(exist_ok=True)
+
+# History directory
+HISTORY_DIR = Path("inspection_history")
+HISTORY_DIR.mkdir(exist_ok=True)
+
+HISTORY_FILE = HISTORY_DIR / "history.json"
+
+# Create history file if missing
+if not HISTORY_FILE.exists():
+
+    with open(HISTORY_FILE, "w") as f:
+        json.dump([], f)
 
 
 # ────────────────────────────────────────────────
@@ -81,6 +95,55 @@ async def root():
 
 
 # ────────────────────────────────────────────────
+# HISTORY HELPERS
+# ────────────────────────────────────────────────
+
+def save_inspection(record):
+
+    with open(HISTORY_FILE, "r") as f:
+        history = json.load(f)
+
+    # newest first
+    history.insert(0, record)
+
+    # keep only latest 100
+    history = history[:100]
+
+    with open(HISTORY_FILE, "w") as f:
+        json.dump(history, f, indent=2)
+
+
+# ────────────────────────────────────────────────
+# GET HISTORY
+# ────────────────────────────────────────────────
+
+@app.get("/history")
+async def get_history():
+
+    with open(HISTORY_FILE, "r") as f:
+        history = json.load(f)
+
+    return {
+        "history": history
+    }
+
+
+# ────────────────────────────────────────────────
+# CLEAR HISTORY
+# ────────────────────────────────────────────────
+
+@app.delete("/history")
+async def clear_history():
+
+    with open(HISTORY_FILE, "w") as f:
+        json.dump([], f)
+
+    return {
+        "message": "Inspection history cleared"
+    }
+
+
+# ────────────────────────────────────────────────
 # SINGLE IMAGE PREDICTION
 # ────────────────────────────────────────────────
 
@@ -96,13 +159,12 @@ async def predict(file: UploadFile = File(...)):
 
     # Save upload
     with open(file_path, "wb") as buffer:
-
         shutil.copyfileobj(file.file, buffer)
 
     # Run prediction
     result = detector.predict(str(file_path))
 
-    # Frontend-accessible heatmap URL
+    # Frontend heatmap URL
     heatmap_path = result.get("heatmap_path")
 
     if heatmap_path:
@@ -110,7 +172,7 @@ async def predict(file: UploadFile = File(...)):
         heatmap_filename = Path(heatmap_path).name
 
         result["heatmap_url"] = (
-            f"http://127.0.0.1:8000/outputs/{heatmap_filename}"
+            f"{BASE_URL}/outputs/{heatmap_filename}"
         )
 
     # Extra metadata
@@ -120,6 +182,36 @@ async def predict(file: UploadFile = File(...)):
         time.time() - start_time,
         2
     )
+
+    # Save history
+    save_inspection({
+
+        "timestamp":
+            datetime.now().strftime(
+                "%Y-%m-%d %H:%M:%S"
+            ),
+
+        "type":
+            "single",
+
+        "filename":
+            file.filename,
+
+        "prediction":
+            result["predicted_class"],
+
+        "confidence":
+            result["confidence"],
+
+        "status":
+            result["status"],
+
+        "heatmap_url":
+            result.get("heatmap_url"),
+
+        "inspection_id":
+            result["inspection_id"]
+    })
 
     return result
 
@@ -147,7 +239,7 @@ async def predict_batch(
             # Unique ID
             file_id = str(uuid.uuid4())
 
-            # Preserve extension if possible
+            # Preserve extension
             extension = Path(file.filename).suffix
 
             if extension == "":
@@ -160,7 +252,6 @@ async def predict_batch(
 
             # Save upload
             with open(file_path, "wb") as buffer:
-
                 shutil.copyfileobj(file.file, buffer)
 
             # Run inference
@@ -176,7 +267,7 @@ async def predict_batch(
                 ).name
 
                 result["heatmap_url"] = (
-                    f"http://127.0.0.1:8000/outputs/"
+                    f"{BASE_URL}/outputs/"
                     f"{heatmap_filename}"
                 )
 
@@ -187,6 +278,36 @@ async def predict_batch(
 
             result["success"] = True
 
+            # Save history
+            save_inspection({
+
+                "timestamp":
+                    datetime.now().strftime(
+                        "%Y-%m-%d %H:%M:%S"
+                    ),
+
+                "type":
+                    "batch",
+
+                "filename":
+                    file.filename,
+
+                "prediction":
+                    result["predicted_class"],
+
+                "confidence":
+                    result["confidence"],
+
+                "status":
+                    result["status"],
+
+                "heatmap_url":
+                    result.get("heatmap_url"),
+
+                "inspection_id":
+                    result["inspection_id"]
+            })
+
             successful += 1
 
             results.append(result)
@@ -196,9 +317,15 @@ async def predict_batch(
             failed += 1
 
             results.append({
-                "filename": file.filename,
-                "success": False,
-                "error": str(e)
+
+                "filename":
+                    file.filename,
+
+                "success":
+                    False,
+
+                "error":
+                    str(e)
             })
 
     total_time = round(
@@ -210,14 +337,19 @@ async def predict_batch(
 
         "batch_summary": {
 
-            "total_images": len(files),
+            "total_images":
+                len(files),
 
-            "successful": successful,
+            "successful":
+                successful,
 
-            "failed": failed,
+            "failed":
+                failed,
 
-            "processing_time_sec": total_time
+            "processing_time_sec":
+                total_time
         },
 
-        "results": results
+        "results":
+            results
     }

@@ -1,5 +1,11 @@
-const API_URL = "http://127.0.0.1:8000/predict";
-const BATCH_API_URL = "http://127.0.0.1:8000/predict-batch";
+const API_URL =
+  "https://mama-rasping-autopilot.ngrok-free.dev/predict";
+
+const BATCH_API_URL =
+  "https://mama-rasping-autopilot.ngrok-free.dev/predict-batch";
+
+const HISTORY_API_URL =
+  "https://mama-rasping-autopilot.ngrok-free.dev/history";
 
 // ────────────────────────────────────────────────
 // ELEMENTS
@@ -74,6 +80,20 @@ const batchResults =
 
 
 // ────────────────────────────────────────────────
+// HISTORY ELEMENTS
+// ────────────────────────────────────────────────
+
+const historyContainer =
+  document.getElementById("historyContainer");
+
+const refreshHistoryButton =
+  document.getElementById("refreshHistoryButton");
+
+const clearHistoryButton =
+  document.getElementById("clearHistoryButton");
+
+
+// ────────────────────────────────────────────────
 // GLOBAL STATE
 // ────────────────────────────────────────────────
 
@@ -101,7 +121,6 @@ imageInput.addEventListener(
       return;
     }
 
-    // Validate image
     if (!file.type.startsWith("image/")) {
 
       setMessage(
@@ -113,7 +132,6 @@ imageInput.addEventListener(
       return;
     }
 
-    // Cleanup old preview
     if (currentObjectURL) {
 
       URL.revokeObjectURL(
@@ -145,7 +163,6 @@ imageInput.addEventListener(
 
     setMessage("");
 
-    // Hide old results
     resultSection.classList.add(
       "hidden"
     );
@@ -328,7 +345,8 @@ predictButton.addEventListener(
       return;
     }
 
-    const formData = new FormData();
+    const formData =
+      new FormData();
 
     formData.append(
       "file",
@@ -374,6 +392,8 @@ predictButton.addEventListener(
         await response.json();
 
       renderResult(data);
+
+      loadHistory();
 
       setMessage(
         `Prediction: ${data.predicted_class} (${data.status})`
@@ -470,6 +490,8 @@ batchPredictButton.addEventListener(
 
       renderBatchResults(data);
 
+      loadHistory();
+
       setMessage(
         "Batch inspection completed."
       );
@@ -520,14 +542,12 @@ function renderResult(data) {
     getStatusClass(status)
   );
 
-  // Original image
   if (currentObjectURL) {
 
     originalResultImage.src =
       currentObjectURL;
   }
 
-  // Heatmap image
   if (data.heatmap_url) {
 
     heatmapImage.src =
@@ -538,7 +558,6 @@ function renderResult(data) {
     );
   }
 
-  // Animate
   resultSection.classList.remove(
     "show"
   );
@@ -605,7 +624,6 @@ function renderBatchResults(data) {
     card.className =
       "batch-result-card";
 
-    // Failed image
     if (!result.success) {
 
       card.innerHTML = `
@@ -631,7 +649,6 @@ function renderBatchResults(data) {
       continue;
     }
 
-    // Success card
     card.innerHTML = `
 
       <div class="batch-card-header">
@@ -693,6 +710,188 @@ function renderBatchResults(data) {
 
 
 // ────────────────────────────────────────────────
+// HISTORY
+// ────────────────────────────────────────────────
+
+async function loadHistory() {
+
+  try {
+
+    const response =
+      await fetch(HISTORY_API_URL);
+
+    const data =
+      await response.json();
+
+    renderHistory(data.history);
+
+  } catch (error) {
+
+    console.error(error);
+  }
+}
+
+
+function renderHistory(history) {
+
+  historyContainer.innerHTML = "";
+
+  if (!history || history.length === 0) {
+
+    historyContainer.innerHTML = `
+      <p class="history-empty">
+        No inspection history yet.
+      </p>
+    `;
+
+    return;
+  }
+
+  for (const item of history) {
+
+    const wrapper =
+      document.createElement("div");
+
+    wrapper.className =
+      "history-dropdown";
+
+    wrapper.innerHTML = `
+
+      <button class="history-toggle">
+
+        <span>
+          ${item.filename}
+        </span>
+
+        <span class="history-arrow">
+          ▼
+        </span>
+
+      </button>
+
+      <div class="history-content hidden">
+
+        <div class="history-card-top">
+
+          <div>
+
+            <p class="history-time">
+              ${item.timestamp}
+            </p>
+
+          </div>
+
+          <span class="
+            status-badge
+            ${getStatusClass(item.status)}
+          ">
+            ${item.status}
+          </span>
+
+        </div>
+
+        <div class="history-details">
+
+          <p>
+            <strong>Prediction:</strong>
+            ${item.prediction}
+          </p>
+
+          <p>
+            <strong>Confidence:</strong>
+            ${item.confidence}%
+          </p>
+
+          <p>
+            <strong>Inspection ID:</strong>
+            ${item.inspection_id}
+          </p>
+
+        </div>
+
+        ${
+          item.heatmap_url
+            ? `
+              <img
+                class="history-heatmap"
+                src="${item.heatmap_url}?t=${Date.now()}"
+              >
+            `
+            : ""
+        }
+
+      </div>
+    `;
+
+    const toggle =
+      wrapper.querySelector(
+        ".history-toggle"
+      );
+
+    const content =
+      wrapper.querySelector(
+        ".history-content"
+      );
+
+    const arrow =
+      wrapper.querySelector(
+        ".history-arrow"
+      );
+
+    toggle.addEventListener(
+      "click",
+      () => {
+
+        content.classList.toggle(
+          "hidden"
+        );
+
+        arrow.textContent =
+          content.classList.contains(
+            "hidden"
+          )
+            ? "▼"
+            : "▲";
+      }
+    );
+
+    historyContainer.appendChild(
+      wrapper
+    );
+  }
+}
+
+
+// ────────────────────────────────────────────────
+// HISTORY BUTTONS
+// ────────────────────────────────────────────────
+
+refreshHistoryButton.addEventListener(
+  "click",
+  loadHistory
+);
+
+clearHistoryButton.addEventListener(
+  "click",
+  async () => {
+
+    try {
+
+      await fetch(HISTORY_API_URL, {
+        method: "DELETE"
+      });
+
+      loadHistory();
+
+    } catch (error) {
+
+      console.error(error);
+    }
+  }
+);
+
+
+// ────────────────────────────────────────────────
 // STATUS COLORS
 // ────────────────────────────────────────────────
 
@@ -725,7 +924,7 @@ function setLoadingState(isLoading) {
   predictButton.textContent =
     isLoading
       ? "Predicting..."
-      : "Predict";
+      : "Run AI Inspection";
 }
 
 
@@ -785,3 +984,10 @@ function stopCamera() {
     "hidden"
   );
 }
+
+
+// ────────────────────────────────────────────────
+// AUTO LOAD HISTORY
+// ────────────────────────────────────────────────
+
+loadHistory();

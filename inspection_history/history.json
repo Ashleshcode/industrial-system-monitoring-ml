@@ -1,0 +1,442 @@
+[
+  {
+    "timestamp": "2026-05-28 22:21:54",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "defect free",
+    "confidence": 63.2,
+    "status": "REVIEW",
+    "heatmap_url": "https://mama-rasping-autopilot.ngrok-free.dev/outputs/078dcee6-39e3-4e04-b8d8-4a1565d190ff_gradcam.jpg",
+    "inspection_id": "078dcee6"
+  },
+  {
+    "timestamp": "2026-05-28 22:21:00",
+    "type": "single",
+    "filename": "broken stitch 4.jpg",
+    "prediction": "defect free",
+    "confidence": 63.0,
+    "status": "REVIEW",
+    "heatmap_url": "https://mama-rasping-autopilot.ngrok-free.dev/outputs/7cf42679-e276-42d5-92c7-66c43d1fa118_gradcam.jpg",
+    "inspection_id": "7cf42679"
+  },
+  {
+    "timestamp": "2026-05-28 22:20:43",
+    "type": "single",
+    "filename": "broken stitch 4.jpg",
+    "prediction": "defect free",
+    "confidence": 63.0,
+    "status": "REVIEW",
+    "heatmap_url": "https://mama-rasping-autopilot.ngrok-free.dev/outputs/1a029278-d1eb-42a4-85ee-ac0fcf4aaa6a_gradcam.jpg",
+    "inspection_id": "1a029278"
+  },
+  {
+    "timestamp": "2026-05-28 22:15:24",
+    "type": "single",
+    "filename": "hole 1.jpg",
+    "prediction": "hole",
+    "confidence": 95.1,
+    "status": "CONFIDENT",
+    "heatmap_url": "https://mama-rasping-autopilot.ngrok-free.dev/outputs/a20abac4-657a-4633-a0bd-778f991b8745_gradcam.jpg",
+    "inspection_id": "a20abac4"
+  },
+  {
+    "timestamp": "2026-05-28 22:06:36",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "stain",
+    "confidence": 53.0,
+    "status": "REVIEW",
+    "heatmap_url": "https://mama-rasping-autopilot.ngrok-free.dev/outputs/006b8a14-984d-4d54-961c-07ec3e34d55a_gradcam.jpg",
+    "inspection_id": "006b8a14"
+  },
+  {
+    "timestamp": "2026-05-28 22:06:29",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "defect free",
+    "confidence": 36.3,
+    "status": "UNCERTAIN",
+    "heatmap_url": "https://mama-rasping-autopilot.ngrok-free.dev/outputs/2a93d6ca-679c-437f-ab1f-26132b90ee28_gradcam.jpg",
+    "inspection_id": "2a93d6ca"
+  },
+  {
+    "timestamp": "2026-05-28 22:06:20",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "defect free",
+    "confidence": 36.3,
+    "status": "UNCERTAIN",
+    "heatmap_url": "https://mama-rasping-autopilot.ngrok-free.dev/outputs/e60e99f5-5112-4952-bd2a-326d08e76398_gradcam.jpg",
+    "inspection_id": "e60e99f5"
+  },
+  {
+    "timestamp": "2026-05-28 22:06:07",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "defect free",
+    "confidence": 47.2,
+    "status": "REVIEW",
+    "heatmap_url": "https://mama-rasping-autopilot.ngrok-free.dev/outputs/84dabdbc-3029-4188-9123-6d9cb1097fe5_gradcam.jpg",
+    "inspection_id": "84dabdbc"
+  },
+  {
+    "timestamp": "2026-05-28 22:06:02",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "defect free",
+    "confidence": 47.2,
+    "status": "REVIEW",
+    "heatmap_url": "https://mama-rasping-autopilot.ngrok-free.dev/outputs/9a69eeef-217c-4bfd-a0ed-77c96c84c940_gradcam.jpg",
+    "inspection_id": "9a69eeef"
+  },
+  {
+    "timestamp": "2026-05-28 22:05:21",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "hole",
+    "confidence": 45.2,
+    "status": "REVIEW",
+    "heatmap_url": "https://mama-rasping-autopilot.ngrok-free.dev/outputs/d67be17b-3942-43e0-968a-811dfb4e93e9_gradcam.jpg",
+    "inspection_id": "d67be17b"
+  },
+  {
+    "timestamp": "2026-05-28 21:58:43",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "hole",
+    "confidence": 37.2,
+    "status": "UNCERTAIN",
+    "heatmap_url": "https://mama-rasping-autopilot.ngrok-free.dev/outputs/6f87d25f-4962-4348-a385-a8bcf53e5e8f_gradcam.jpg",
+    "inspection_id": "6f87d25f"
+  },
+  {
+    "timestamp": "2026-05-28 21:57:48",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "hole",
+    "confidence": 99.3,
+    "status": "CONFIDENT",
+    "heatmap_url": "https://mama-rasping-autopilot.ngrok-free.dev/outputs/49f3418d-b6ff-4741-ace5-267ed71e5d73_gradcam.jpg",
+    "inspection_id": "49f3418d"
+  },
+  {
+    "timestamp": "2026-05-28 21:49:14",
+    "type": "single",
+    "filename": "hole 2.jpg",
+    "prediction": "hole",
+    "confidence": 76.3,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/55938a4e-e1e3-4505-b45d-a748a333b290_gradcam.jpg",
+    "inspection_id": "55938a4e"
+  },
+  {
+    "timestamp": "2026-05-28 21:47:43",
+    "type": "single",
+    "filename": "1000133467.jpg",
+    "prediction": "stain",
+    "confidence": 81.8,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/9e55ca1a-a0a4-4e09-be0b-3b9f531fa6ca_gradcam.jpg",
+    "inspection_id": "9e55ca1a"
+  },
+  {
+    "timestamp": "2026-05-28 21:47:14",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "defect free",
+    "confidence": 66.9,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/87174ea0-50ea-4730-b055-f434ae13a075_gradcam.jpg",
+    "inspection_id": "87174ea0"
+  },
+  {
+    "timestamp": "2026-05-28 21:27:14",
+    "type": "single",
+    "filename": "A_02_080.jpg",
+    "prediction": "Broken stitch",
+    "confidence": 99.0,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/34f97fd1-6f2f-4877-8517-8bb30ad3b94f_gradcam.jpg",
+    "inspection_id": "34f97fd1"
+  },
+  {
+    "timestamp": "2026-05-28 21:27:03",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "stain",
+    "confidence": 81.9,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/c47d87ea-4d55-451b-869f-7245f2998314_gradcam.jpg",
+    "inspection_id": "c47d87ea"
+  },
+  {
+    "timestamp": "2026-05-28 21:19:29",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "stain",
+    "confidence": 81.9,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/43a34fd2-8bcb-4e60-86e2-d15e46d6fc16_gradcam.jpg",
+    "inspection_id": "43a34fd2"
+  },
+  {
+    "timestamp": "2026-05-28 21:14:14",
+    "type": "single",
+    "filename": "broken stitch 4.jpg",
+    "prediction": "defect free",
+    "confidence": 63.0,
+    "status": "REVIEW",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/89bff747-12f3-4417-a745-b652d6727b90_gradcam.jpg",
+    "inspection_id": "89bff747"
+  },
+  {
+    "timestamp": "2026-05-28 21:04:06",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "stain",
+    "confidence": 47.6,
+    "status": "REVIEW",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/09638e34-efee-4d66-8616-ae117d38159e_gradcam.jpg",
+    "inspection_id": "09638e34"
+  },
+  {
+    "timestamp": "2026-05-28 21:03:29",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "hole",
+    "confidence": 42.3,
+    "status": "UNCERTAIN",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/ddc1129f-e930-4e65-8521-e97d2f9b8d20_gradcam.jpg",
+    "inspection_id": "ddc1129f"
+  },
+  {
+    "timestamp": "2026-05-28 21:03:03",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "defect free",
+    "confidence": 41.9,
+    "status": "UNCERTAIN",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/77041179-d234-473d-9be0-ead1f4da3176_gradcam.jpg",
+    "inspection_id": "77041179"
+  },
+  {
+    "timestamp": "2026-05-28 21:02:35",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "hole",
+    "confidence": 76.8,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/876a4cf7-1eb2-4ccb-a28e-84a50c74cb6d_gradcam.jpg",
+    "inspection_id": "876a4cf7"
+  },
+  {
+    "timestamp": "2026-05-28 21:02:06",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "defect free",
+    "confidence": 76.6,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/ab7976d3-0734-417f-bfdd-188bde6846b1_gradcam.jpg",
+    "inspection_id": "ab7976d3"
+  },
+  {
+    "timestamp": "2026-05-28 20:54:03",
+    "type": "single",
+    "filename": "broken stitch 4.jpg",
+    "prediction": "defect free",
+    "confidence": 63.0,
+    "status": "REVIEW",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/c1431227-681d-4857-804c-b96f3bdbb9a8_gradcam.jpg",
+    "inspection_id": "c1431227"
+  },
+  {
+    "timestamp": "2026-05-28 20:53:25",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "stain",
+    "confidence": 50.5,
+    "status": "REVIEW",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/d0adbe35-44ea-49ca-ac4f-9df70647d162_gradcam.jpg",
+    "inspection_id": "d0adbe35"
+  },
+  {
+    "timestamp": "2026-05-28 20:51:38",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "defect free",
+    "confidence": 82.2,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/23b99866-6530-40be-a1f1-8fedce3d480c_gradcam.jpg",
+    "inspection_id": "23b99866"
+  },
+  {
+    "timestamp": "2026-05-28 20:45:13",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "defect free",
+    "confidence": 51.0,
+    "status": "REVIEW",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/1c75051d-ffd7-4d83-a149-28c6813e010c_gradcam.jpg",
+    "inspection_id": "1c75051d"
+  },
+  {
+    "timestamp": "2026-05-28 20:44:44",
+    "type": "single",
+    "filename": "captured_image.jpg",
+    "prediction": "hole",
+    "confidence": 32.9,
+    "status": "UNCERTAIN",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/6e1eaeee-37f2-46fa-9cdb-c9c714000173_gradcam.jpg",
+    "inspection_id": "6e1eaeee"
+  },
+  {
+    "timestamp": "2026-05-28 20:25:31",
+    "type": "single",
+    "filename": "53.jpg",
+    "prediction": "defect free",
+    "confidence": 42.8,
+    "status": "UNCERTAIN",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/0645b903-fe79-46d9-a41d-bcf73959ba2a_gradcam.jpg",
+    "inspection_id": "0645b903"
+  },
+  {
+    "timestamp": "2026-05-28 19:53:31",
+    "type": "batch",
+    "filename": "97b485e84eca833f1506154723.jpg",
+    "prediction": "defect free",
+    "confidence": 75.0,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/1cf74643-f58e-41f1-bc61-6daf664cd118_gradcam.jpg",
+    "inspection_id": "1cf74643"
+  },
+  {
+    "timestamp": "2026-05-28 19:52:30",
+    "type": "batch",
+    "filename": "6.jpg",
+    "prediction": "stain",
+    "confidence": 97.2,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/9a1b1eb5-24ba-4d97-8a09-eef36eeae9fe_gradcam.jpg",
+    "inspection_id": "9a1b1eb5"
+  },
+  {
+    "timestamp": "2026-05-28 19:52:30",
+    "type": "batch",
+    "filename": "5.jpg",
+    "prediction": "stain",
+    "confidence": 97.2,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/c6489e8d-2aee-439a-8b79-9a72166e6f82_gradcam.jpg",
+    "inspection_id": "c6489e8d"
+  },
+  {
+    "timestamp": "2026-05-28 19:52:30",
+    "type": "batch",
+    "filename": "4.jpg",
+    "prediction": "stain",
+    "confidence": 83.0,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/13a2d2ff-4492-49b4-98eb-54e0fbe7091e_gradcam.jpg",
+    "inspection_id": "13a2d2ff"
+  },
+  {
+    "timestamp": "2026-05-28 19:52:29",
+    "type": "batch",
+    "filename": "3.jpg",
+    "prediction": "stain",
+    "confidence": 91.4,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/2d9a8fd5-4d49-4818-a07c-e42f19209ab6_gradcam.jpg",
+    "inspection_id": "2d9a8fd5"
+  },
+  {
+    "timestamp": "2026-05-28 19:52:29",
+    "type": "batch",
+    "filename": "2.jpg",
+    "prediction": "stain",
+    "confidence": 71.5,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/4bf529f3-0ac9-4ce2-b5a2-4aace3c63773_gradcam.jpg",
+    "inspection_id": "4bf529f3"
+  },
+  {
+    "timestamp": "2026-05-28 19:52:29",
+    "type": "batch",
+    "filename": "1.jpg",
+    "prediction": "stain",
+    "confidence": 87.1,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/b443ac10-ee74-4acd-86ea-21cb1d39b2dc_gradcam.jpg",
+    "inspection_id": "b443ac10"
+  },
+  {
+    "timestamp": "2026-05-28 19:49:29",
+    "type": "batch",
+    "filename": "4.jpg",
+    "prediction": "stain",
+    "confidence": 83.0,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/0e599622-3a08-4c9c-b347-cd772508a10d_gradcam.jpg",
+    "inspection_id": "0e599622"
+  },
+  {
+    "timestamp": "2026-05-28 19:30:56",
+    "type": "batch",
+    "filename": "4.jpg",
+    "prediction": "stain",
+    "confidence": 83.0,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/e396e2fe-c160-494b-ae8c-69480d5b57ac_gradcam.jpg",
+    "inspection_id": "e396e2fe"
+  },
+  {
+    "timestamp": "2026-05-28 19:29:04",
+    "type": "batch",
+    "filename": "4.jpg",
+    "prediction": "stain",
+    "confidence": 83.0,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/cf4e4007-a88c-4f26-9ef0-33d965bf823e_gradcam.jpg",
+    "inspection_id": "cf4e4007"
+  },
+  {
+    "timestamp": "2026-05-28 19:11:09",
+    "type": "batch",
+    "filename": "3.jpg",
+    "prediction": "stain",
+    "confidence": 91.4,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/b981964a-7c7b-442c-9150-4abeaa0e7103_gradcam.jpg",
+    "inspection_id": "b981964a"
+  },
+  {
+    "timestamp": "2026-05-28 19:10:33",
+    "type": "batch",
+    "filename": "8.jpg",
+    "prediction": "stain",
+    "confidence": 69.9,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/720c65d0-306e-4d42-8982-ba1becc70748_gradcam.jpg",
+    "inspection_id": "720c65d0"
+  },
+  {
+    "timestamp": "2026-05-28 19:09:04",
+    "type": "single",
+    "filename": "2.jpg",
+    "prediction": "stain",
+    "confidence": 71.5,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/bd23c083-2f71-4679-b367-a517f92258bd_gradcam.jpg",
+    "inspection_id": "bd23c083"
+  },
+  {
+    "timestamp": "2026-05-28 19:08:27",
+    "type": "single",
+    "filename": "6.jpg",
+    "prediction": "stain",
+    "confidence": 97.2,
+    "status": "CONFIDENT",
+    "heatmap_url": "http://127.0.0.1:8000/outputs/d38162bb-5861-44bc-9ec9-81421de82e71_gradcam.jpg",
+    "inspection_id": "d38162bb"
+  }
+]
