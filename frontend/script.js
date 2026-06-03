@@ -6,6 +6,9 @@ const BATCH_API_URL =
 
 const HISTORY_API_URL =
   "https://mama-rasping-autopilot.ngrok-free.dev/history";
+  const NGROK_HEADERS = {
+  "ngrok-skip-browser-warning": "true"
+};
 
 // ────────────────────────────────────────────────
 // ELEMENTS
@@ -370,14 +373,16 @@ predictButton.addEventListener(
         }, 15000);
 
       const response =
-        await fetch(API_URL, {
+  await fetch(API_URL, {
 
-          method: "POST",
+    method: "POST",
 
-          body: formData,
+    headers: NGROK_HEADERS,
 
-          signal: controller.signal
-        });
+    body: formData,
+
+    signal: controller.signal
+  });
 
       clearTimeout(timeout);
 
@@ -469,14 +474,15 @@ batchPredictButton.addEventListener(
 
     try {
 
-      const response =
-        await fetch(
-          BATCH_API_URL,
-          {
-            method: "POST",
-            body: formData
-          }
-        );
+     const response =
+  await fetch(
+    BATCH_API_URL,
+    {
+      method: "POST",
+      headers: NGROK_HEADERS,
+      body: formData
+    }
+  );
 
       if (!response.ok) {
 
@@ -718,7 +724,9 @@ async function loadHistory() {
   try {
 
     const response =
-      await fetch(HISTORY_API_URL);
+  await fetch(HISTORY_API_URL, {
+    headers: NGROK_HEADERS
+  });
 
     const data =
       await response.json();
@@ -878,8 +886,9 @@ clearHistoryButton.addEventListener(
     try {
 
       await fetch(HISTORY_API_URL, {
-        method: "DELETE"
-      });
+  method: "DELETE",
+  headers: NGROK_HEADERS
+});
 
       loadHistory();
 
